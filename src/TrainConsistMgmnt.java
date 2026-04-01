@@ -1,66 +1,54 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-/**
- * ========================================================
- * MAIN CLASS - UseCase2TrainConsistMgmnt
- * ========================================================
- *
- * Use Case 2: Add Passenger Bogies to Train
- *
- * Description:
- * This class demonstrates how passenger bogies can be
- * managed dynamically using ArrayList operations.
- *
- * At this stage, the application:
- * - Adds new bogies to the train
- * - Removes existing bogies
- * - Checks for bogie availability
- * - Displays the final consist
- *
- * This maps CRUD operations using ArrayList.
- *
- * @author Developer
- * @version 2.0
- */
+
 public class TrainConsistMgmnt {
+
+    // Inner Bogie class to model passenger bogies
+    static class Bogie {
+        String name;
+        int capacity;
+
+        // Constructor to initialize bogie name and capacity
+        Bogie(String name, int capacity) {
+            this.name = name;
+            this.capacity = capacity;
+        }
+    }
 
     public static void main(String[] args) {
 
         // Display welcome banner
-        System.out.println("========================================");
-        System.out.println(" UC2 - Add Passenger Bogies to Train ");
-        System.out.println("========================================\n");
+        System.out.println("================================================");
+        System.out.println(" UC7 - Sort Bogies by Capacity (Comparator) ");
+        System.out.println("================================================\n");
 
-        // Create an ArrayList to hold passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        // Create list of passenger bogies
+        List<Bogie> bogies = new ArrayList<>();
 
-        // ---- CREATE (Add bogies) ----
-        // add() attaches a new bogie to the train
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // ---- ADD bogie objects with name and capacity ----
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("General", 90));
 
-        // ---- READ (Display bogies after adding) ----
-        System.out.println("After Adding Bogies:");
-        System.out.println("Passenger Bogies : " + passengerBogies);
+        // ---- READ - Display bogies before sorting ----
+        System.out.println("Before Sorting:");
+        for (Bogie b : bogies) {
+            System.out.println(b.name + " -> " + b.capacity);
+        }
 
-        // ---- DELETE (Remove a bogie) ----
-        // remove() detaches a bogie from the train
-        passengerBogies.remove("AC Chair");
+        // ---- SORT using Comparator by capacity (ascending) ----
+        // Comparator.comparingInt() applies custom ordering logic
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
 
-        System.out.println("\nAfter Removing 'AC Chair':");
-        System.out.println("Passenger Bogies : " + passengerBogies);
+        // ---- READ - Display bogies after sorting ----
+        System.out.println("\nAfter Sorting by Capacity:");
+        for (Bogie b : bogies) {
+            System.out.println(b.name + " -> " + b.capacity);
+        }
 
-        // ---- contains() - Check if a bogie exists ----
-        System.out.println("\nChecking if 'Sleeper' exists:");
-        System.out.println("Contains Sleeper? : " + passengerBogies.contains("Sleeper"));
-
-        // ---- Final consist display ----
-        System.out.println("\nFinal Train Passenger Consist:");
-        System.out.println(passengerBogies);
-
-        System.out.println("\nUC2 operations completed successfully...");
+        System.out.println("\nUC7 sorting completed...");
     }
 }
-
