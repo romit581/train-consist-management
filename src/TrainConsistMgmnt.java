@@ -1,48 +1,26 @@
-/**
- * Use Case 16: Sort Passenger Bogies by Capacity
- * Description: Demonstrates manual sorting of passenger bogie capacities
- * using the Bubble Sort algorithm instead of built-in sorting utilities.
- * * @author Developer
- * @version 26.0
- */
+import java.util.Arrays;
 public class TrainConsistMgmnt {
 
     public static void main(String[] args) {
         System.out.println("=====================================================");
-        System.out.println(" UC16 - Manual Sorting using Bubble Sort ");
+        System.out.println(" UC17 - Sort Bogie Names Using Arrays.sort() ");
         System.out.println("=====================================================");
 
-        // 1. Create array of passenger bogie capacities [cite: 39, 67]
-        int[] capacities = {72, 56, 24, 70, 60};
+        // 1. Create an array of bogie type names [cite: 148, 172]
+        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
 
-        // 2. Display original order [cite: 40, 41]
-        System.out.println("Original Capacities:");
-        for (int capacity : capacities) {
-            System.out.print(capacity + " ");
-        }
-        System.out.println();
+        // 2. Display original order [cite: 186, 187]
+        System.out.println("Original Bogie Names:");
+        System.out.println(Arrays.toString(bogieNames));
 
-        // BUBBLE SORT LOGIC [cite: 44]
-        // Outer Loop controls the number of passes [cite: 45, 46, 62]
-        for (int i = 0; i < capacities.length - 1; i++) {
-            // Inner Loop compares adjacent values [cite: 54, 62, 68]
-            for (int j = 0; j < capacities.length - 1 - i; j++) {
-                // Swap values if the left element is greater than the right element [cite: 55, 63, 69]
-                if (capacities[j] > capacities[j + 1]) {
-                    // Swapping Logic using a temporary variable [cite: 63]
-                    int temp = capacities[j];
-                    capacities[j] = capacities[j + 1];
-                    capacities[j + 1] = temp;
-                }
-            }
-        }
+        // 3. Use Arrays.sort() for optimized alphabetical sorting [cite: 149, 173]
+        // This replaces the manual O(n^2) Bubble Sort with an O(n log n) algorithm
+        Arrays.sort(bogieNames);
 
-        // 3. Display sorted result (Ascending) [cite: 47, 48, 57]
-        System.out.println("\nSorted Capacities (Ascending):");
-        for (int capacity : capacities) {
-            System.out.print(capacity + " ");
-        }
+        // 4. Display sorted results using Arrays.toString() [cite: 150, 175]
+        System.out.println("\nSorted Bogie Names (Alphabetical):");
+        System.out.println(Arrays.toString(bogieNames));
 
-        System.out.println("\n\nUC16 sorting completed...");
+        System.out.println("\nUC17 sorting completed...");
     }
 }

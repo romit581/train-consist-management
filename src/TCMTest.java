@@ -1,63 +1,51 @@
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
+
 class TCMTest {
 
-    // Method representing the core Bubble Sort logic to be tested
-    public void bubbleSort(int[] array) {
-        int n = array.length;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (array[j] > array[j + 1]) {
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
-                }
-            }
-        }
+    @Test
+    void testSort_BasicAlphabeticalSorting() {
+        // Verifies alphabetical sorting of a typical unsorted array [cite: 204]
+        String[] input = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
+        String[] expected = {"AC Chair", "First Class", "General", "Luxury", "Sleeper"};
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 
     @Test
-    void testSort_BasicSorting() {
-        // Verifies that the Bubble Sort algorithm correctly sorts a typical unsorted array [cite: 99]
-        int[] input = {72, 56, 24, 70, 60};
-        int[] expected = {24, 56, 60, 70, 72};
-        bubbleSort(input);
-        assertArrayEquals(expected, input, "The array should be sorted in ascending order [cite: 100]");
+    void testSort_UnsortedInput() {
+        // Verifies rearrangement of random order names into alphabetical order [cite: 207]
+        String[] input = {"Luxury", "General", "Sleeper", "AC Chair"};
+        String[] expected = {"AC Chair", "General", "Luxury", "Sleeper"};
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 
     @Test
     void testSort_AlreadySortedArray() {
-        // Verifies that an already sorted array remains unchanged after sorting [cite: 102]
-        int[] input = {24, 56, 60, 70, 72};
-        int[] expected = {24, 56, 60, 70, 72};
-        bubbleSort(input);
-        assertArrayEquals(expected, input, "An already sorted array should remain the same [cite: 103]");
+        // Verifies that an already sorted array remains unchanged [cite: 211]
+        String[] input = {"AC Chair", "First Class", "General"};
+        String[] expected = {"AC Chair", "First Class", "General"};
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 
     @Test
-    void testSort_DuplicateValues() {
-        // Verifies that duplicate capacities are handled correctly during sorting [cite: 104]
-        int[] input = {72, 56, 56, 24};
-        int[] expected = {24, 56, 56, 72};
-        bubbleSort(input);
-        assertArrayEquals(expected, input, "Duplicates should be retained and ordered correctly [cite: 105]");
+    void testSort_DuplicateBogieNames() {
+        // Verifies that duplicate names are retained and ordered correctly [cite: 214]
+        String[] input = {"Sleeper", "AC Chair", "Sleeper", "General"};
+        String[] expected = {"AC Chair", "General", "Sleeper", "Sleeper"};
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 
     @Test
     void testSort_SingleElementArray() {
-        // Verifies that sorting a single element array does not modify the array [cite: 106]
-        int[] input = {50};
-        int[] expected = {50};
-        bubbleSort(input);
-        assertArrayEquals(expected, input, "A single element array should remain unchanged [cite: 107]");
-    }
-
-    @Test
-    void testSort_AllEqualValues() {
-        // Verifies that arrays containing identical values remain unchanged [cite: 108]
-        int[] input = {40, 40, 40};
-        int[] expected = {40, 40, 40};
-        bubbleSort(input);
-        assertArrayEquals(expected, input, "An array of identical values should remain the same [cite: 109]");
+        // Verifies that sorting a single element does not modify the array [cite: 216]
+        String[] input = {"Sleeper"};
+        String[] expected = {"Sleeper"};
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 }
