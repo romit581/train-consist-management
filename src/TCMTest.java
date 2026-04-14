@@ -1,73 +1,63 @@
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+class TCMTest {
 
-public class TCMTest {
-
-    @Test
-    void testCargo_SafeAssignment() {
-        // Cylindrical bogie can safely carry Petroleum
-        TrainConsistMgmnt.GoodsBogie bogie =
-                new TrainConsistMgmnt.GoodsBogie("Cylindrical");
-        // Should not throw any exception
-        assertDoesNotThrow(() -> bogie.assignCargo("Petroleum"));
-        // Cargo should be assigned successfully
-        assertEquals("Petroleum", bogie.cargo);
+    // Method representing the core Bubble Sort logic to be tested
+    public void bubbleSort(int[] array) {
+        int n = array.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
     }
 
     @Test
-    void testCargo_UnsafeAssignmentHandled() {
-        // Rectangular bogie cannot carry Petroleum
-        // Exception is caught inside assignCargo() so no exception
-        // propagates to the caller - program does not crash
-        TrainConsistMgmnt.GoodsBogie bogie =
-                new TrainConsistMgmnt.GoodsBogie("Rectangular");
-        // assignCargo handles exception internally - no throw to caller
-        assertDoesNotThrow(() -> bogie.assignCargo("Petroleum"));
+    void testSort_BasicSorting() {
+        // Verifies that the Bubble Sort algorithm correctly sorts a typical unsorted array [cite: 99]
+        int[] input = {72, 56, 24, 70, 60};
+        int[] expected = {24, 56, 60, 70, 72};
+        bubbleSort(input);
+        assertArrayEquals(expected, input, "The array should be sorted in ascending order [cite: 100]");
     }
 
     @Test
-    void testCargo_CargoNotAssignedAfterFailure() {
-        // When unsafe assignment occurs, cargo field must remain null
-        TrainConsistMgmnt.GoodsBogie bogie =
-                new TrainConsistMgmnt.GoodsBogie("Rectangular");
-        bogie.assignCargo("Petroleum");
-        // cargo should NOT be set because exception was thrown before assignment
-        assertNull(bogie.cargo);
+    void testSort_AlreadySortedArray() {
+        // Verifies that an already sorted array remains unchanged after sorting [cite: 102]
+        int[] input = {24, 56, 60, 70, 72};
+        int[] expected = {24, 56, 60, 70, 72};
+        bubbleSort(input);
+        assertArrayEquals(expected, input, "An already sorted array should remain the same [cite: 103]");
     }
 
     @Test
-    void testCargo_ProgramContinuesAfterException() {
-        // Multiple assignments should all complete without crashing
-        TrainConsistMgmnt.GoodsBogie rect =
-                new TrainConsistMgmnt.GoodsBogie("Rectangular");
-        TrainConsistMgmnt.GoodsBogie cyl =
-                new TrainConsistMgmnt.GoodsBogie("Cylindrical");
-
-        // Both calls should execute without propagating exceptions
-        assertDoesNotThrow(() -> rect.assignCargo("Petroleum"));
-        assertDoesNotThrow(() -> cyl.assignCargo("Petroleum"));
-
-        // Cylindrical should have cargo assigned
-        assertEquals("Petroleum", cyl.cargo);
-        // Rectangular should NOT have cargo assigned
-        assertNull(rect.cargo);
+    void testSort_DuplicateValues() {
+        // Verifies that duplicate capacities are handled correctly during sorting [cite: 104]
+        int[] input = {72, 56, 56, 24};
+        int[] expected = {24, 56, 56, 72};
+        bubbleSort(input);
+        assertArrayEquals(expected, input, "Duplicates should be retained and ordered correctly [cite: 105]");
     }
 
     @Test
-    void testCargo_FinallyBlockExecution() {
-        // finally block always runs - verified by checking
-        // cargo state after both safe and unsafe assignments
+    void testSort_SingleElementArray() {
+        // Verifies that sorting a single element array does not modify the array [cite: 106]
+        int[] input = {50};
+        int[] expected = {50};
+        bubbleSort(input);
+        assertArrayEquals(expected, input, "A single element array should remain unchanged [cite: 107]");
+    }
 
-        // Safe path - finally runs after successful assignment
-        TrainConsistMgmnt.GoodsBogie cyl =
-                new TrainConsistMgmnt.GoodsBogie("Cylindrical");
-        cyl.assignCargo("Petroleum");
-        assertEquals("Petroleum", cyl.cargo); // assignment succeeded
-
-        // Unsafe path - finally runs after exception is caught
-        TrainConsistMgmnt.GoodsBogie rect =
-                new TrainConsistMgmnt.GoodsBogie("Rectangular");
-        rect.assignCargo("Petroleum");
-        assertNull(rect.cargo); // assignment failed but program alive
+    @Test
+    void testSort_AllEqualValues() {
+        // Verifies that arrays containing identical values remain unchanged [cite: 108]
+        int[] input = {40, 40, 40};
+        int[] expected = {40, 40, 40};
+        bubbleSort(input);
+        assertArrayEquals(expected, input, "An array of identical values should remain the same [cite: 109]");
     }
 }
