@@ -1,51 +1,51 @@
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
-import java.util.Arrays;
 
 class TCMTest {
 
-    @Test
-    void testSort_BasicAlphabeticalSorting() {
-        // Verifies alphabetical sorting of a typical unsorted array [cite: 204]
-        String[] input = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
-        String[] expected = {"AC Chair", "First Class", "General", "Luxury", "Sleeper"};
-        Arrays.sort(input);
-        assertArrayEquals(expected, input);
+    // Helper method to represent the Linear Search logic
+    private boolean linearSearch(String[] array, String key) {
+        for (String element : array) {
+            if (element.equals(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Test
-    void testSort_UnsortedInput() {
-        // Verifies rearrangement of random order names into alphabetical order [cite: 207]
-        String[] input = {"Luxury", "General", "Sleeper", "AC Chair"};
-        String[] expected = {"AC Chair", "General", "Luxury", "Sleeper"};
-        Arrays.sort(input);
-        assertArrayEquals(expected, input);
+    void testSearch_BogieFound() {
+        // Verifies identification of an existing bogie ID [cite: 333]
+        String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(linearSearch(ids, "BG309")); // [cite: 334]
     }
 
     @Test
-    void testSort_AlreadySortedArray() {
-        // Verifies that an already sorted array remains unchanged [cite: 211]
-        String[] input = {"AC Chair", "First Class", "General"};
-        String[] expected = {"AC Chair", "First Class", "General"};
-        Arrays.sort(input);
-        assertArrayEquals(expected, input);
+    void testSearch_BogieNotFound() {
+        // Verifies negative result when the bogie ID does not exist [cite: 336]
+        String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertFalse(linearSearch(ids, "BG999")); // [cite: 337]
     }
 
     @Test
-    void testSort_DuplicateBogieNames() {
-        // Verifies that duplicate names are retained and ordered correctly [cite: 214]
-        String[] input = {"Sleeper", "AC Chair", "Sleeper", "General"};
-        String[] expected = {"AC Chair", "General", "Sleeper", "Sleeper"};
-        Arrays.sort(input);
-        assertArrayEquals(expected, input);
+    void testSearch_FirstElementMatch() {
+        // Verifies correct match at the very first position [cite: 339]
+        String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(linearSearch(ids, "BG101")); // [cite: 340]
     }
 
     @Test
-    void testSort_SingleElementArray() {
-        // Verifies that sorting a single element does not modify the array [cite: 216]
-        String[] input = {"Sleeper"};
-        String[] expected = {"Sleeper"};
-        Arrays.sort(input);
-        assertArrayEquals(expected, input);
+    void testSearch_LastElementMatch() {
+        // Verifies match at the final position after full traversal [cite: 342]
+        String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        assertTrue(linearSearch(ids, "BG550")); // [cite: 343]
+    }
+
+    @Test
+    void testSearch_SingleElementArray() {
+        // Verifies search works when only one ID exists [cite: 345]
+        String[] ids = {"BG101"};
+        assertTrue(linearSearch(ids, "BG101")); // [cite: 346]
     }
 }

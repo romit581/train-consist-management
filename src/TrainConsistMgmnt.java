@@ -1,26 +1,42 @@
-import java.util.Arrays;
+
 public class TrainConsistMgmnt {
 
     public static void main(String[] args) {
         System.out.println("=====================================================");
-        System.out.println(" UC17 - Sort Bogie Names Using Arrays.sort() ");
+        System.out.println(" UC18 - Linear Search for Bogie ID ");
         System.out.println("=====================================================");
 
-        // 1. Create an array of bogie type names [cite: 148, 172]
-        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
+        // 1. Create array of bogie IDs [cite: 270]
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        // 2. Display original order [cite: 186, 187]
-        System.out.println("Original Bogie Names:");
-        System.out.println(Arrays.toString(bogieNames));
+        // 2. Bogie ID to search [cite: 272]
+        String searchId = "BG309";
 
-        // 3. Use Arrays.sort() for optimized alphabetical sorting [cite: 149, 173]
-        // This replaces the manual O(n^2) Bubble Sort with an O(n log n) algorithm
-        Arrays.sort(bogieNames);
+        // Display all available bogies [cite: 274]
+        System.out.println("Available Bogie IDs:");
+        for (String id : bogieIds) {
+            System.out.println(id);
+        }
 
-        // 4. Display sorted results using Arrays.toString() [cite: 150, 175]
-        System.out.println("\nSorted Bogie Names (Alphabetical):");
-        System.out.println(Arrays.toString(bogieNames));
+        // LINEAR SEARCH LOGIC [cite: 276]
+        boolean found = false;
 
-        System.out.println("\nUC17 sorting completed...");
+        // Traverse each element sequentially [cite: 277]
+        for (String id : bogieIds) {
+            // Equality Comparison using equals() for string safety [cite: 294, 301]
+            if (id.equals(searchId)) {
+                found = true;
+                break; // Early Termination once match is found [cite: 295, 302]
+            }
+        }
+
+        // 3. Display search result [cite: 280, 303]
+        if (found) {
+            System.out.println("\nBogie " + searchId + " found in train consist.");
+        } else {
+            System.out.println("\nBogie " + searchId + " NOT found in train consist.");
+        }
+
+        System.out.println("UC18 search completed...");
     }
 }
