@@ -1,10 +1,3 @@
-/**
- * Use Case 16: Sort Passenger Bogies by Capacity
- * Description: Demonstrates manual sorting of passenger bogie capacities
- * using the Bubble Sort algorithm instead of built-in sorting utilities.
- * * @author Developer
- * @version 26.0
- */
 public class TrainConsistMgmnt {
 
     public static void main(String[] args) {
