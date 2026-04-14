@@ -1,51 +1,68 @@
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
 
 class TCMTest {
 
-    // Helper method to represent the Linear Search logic
-    private boolean linearSearch(String[] array, String key) {
-        for (String element : array) {
-            if (element.equals(key)) {
-                return true;
-            }
+    // Helper method to represent the Binary Search logic
+    private boolean binarySearch(String[] array, String key) {
+        // Ensure data is sorted before applying Binary Search
+        Arrays.sort(array);
+
+        int low = 0;
+        int high = array.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int res = key.compareTo(array[mid]);
+
+            if (res == 0) return true;
+            if (res > 0) low = mid + 1;
+            else high = mid - 1;
         }
         return false;
     }
 
     @Test
-    void testSearch_BogieFound() {
-        // Verifies identification of an existing bogie ID [cite: 333]
+    void testBinarySearch_BogieFound() {
+        // Verifies identification of an existing bogie ID [cite: 960]
         String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        assertTrue(linearSearch(ids, "BG309")); // [cite: 334]
+        assertTrue(binarySearch(ids, "BG309"));
     }
 
     @Test
-    void testSearch_BogieNotFound() {
-        // Verifies negative result when the bogie ID does not exist [cite: 336]
+    void testBinarySearch_BogieNotFound() {
+        // Verifies negative result when ID does not exist [cite: 963]
         String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        assertFalse(linearSearch(ids, "BG999")); // [cite: 337]
+        assertFalse(binarySearch(ids, "BG999"));
     }
 
     @Test
-    void testSearch_FirstElementMatch() {
-        // Verifies correct match at the very first position [cite: 339]
+    void testBinarySearch_FirstElementMatch() {
+        // Verifies match at the first position [cite: 966]
         String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        assertTrue(linearSearch(ids, "BG101")); // [cite: 340]
+        assertTrue(binarySearch(ids, "BG101"));
     }
 
     @Test
-    void testSearch_LastElementMatch() {
-        // Verifies match at the final position after full traversal [cite: 342]
+    void testBinarySearch_LastElementMatch() {
+        // Verifies match at the last position [cite: 969]
         String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        assertTrue(linearSearch(ids, "BG550")); // [cite: 343]
+        assertTrue(binarySearch(ids, "BG550"));
     }
 
     @Test
-    void testSearch_SingleElementArray() {
-        // Verifies search works when only one ID exists [cite: 345]
-        String[] ids = {"BG101"};
-        assertTrue(linearSearch(ids, "BG101")); // [cite: 346]
+    void testBinarySearch_EmptyArray() {
+        // Verifies safe handling of empty lists [cite: 975]
+        String[] ids = {};
+        assertFalse(binarySearch(ids, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_UnsortedInputHandled() {
+        // Verifies sorting occurs before searching [cite: 977]
+        String[] ids = {"BG309", "BG101", "BG550", "BG205", "BG412"};
+        assertTrue(binarySearch(ids, "BG205"));
     }
 }

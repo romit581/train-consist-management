@@ -1,42 +1,54 @@
-
+import java.util.Arrays;
 public class TrainConsistMgmnt {
 
     public static void main(String[] args) {
         System.out.println("=====================================================");
-        System.out.println(" UC18 - Linear Search for Bogie ID ");
+        System.out.println(" UC19 - Binary Search for Bogie ID ");
         System.out.println("=====================================================");
 
-        // 1. Create array of bogie IDs [cite: 270]
+        // 1. Create array of bogie IDs
         String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        // 2. Bogie ID to search [cite: 272]
-        String searchId = "BG309";
+        // 2. Precondition: Ensure data is sorted before binary search
+        Arrays.sort(bogieIds);
 
-        // Display all available bogies [cite: 274]
-        System.out.println("Available Bogie IDs:");
+        // 3. Define search key
+        String key = "BG309";
+
+        // Display sorted available bogies
+        System.out.println("Sorted Bogie IDs:");
         for (String id : bogieIds) {
             System.out.println(id);
         }
 
-        // LINEAR SEARCH LOGIC [cite: 276]
+        // BINARY SEARCH LOGIC
+        int low = 0;
+        int high = bogieIds.length - 1;
         boolean found = false;
 
-        // Traverse each element sequentially [cite: 277]
-        for (String id : bogieIds) {
-            // Equality Comparison using equals() for string safety [cite: 294, 301]
-            if (id.equals(searchId)) {
+        while (low <= high) {
+            int mid = low + (high - low) / 2; // Compute mid index
+
+            // Compare key with middle element using compareTo()
+            int comparison = key.compareTo(bogieIds[mid]);
+
+            if (comparison == 0) {
                 found = true;
-                break; // Early Termination once match is found [cite: 295, 302]
+                break; // Match found
+            } else if (comparison > 0) {
+                low = mid + 1; // Search right half
+            } else {
+                high = mid - 1; // Search left half
             }
         }
 
-        // 3. Display search result [cite: 280, 303]
+        // 4. Display result
         if (found) {
-            System.out.println("\nBogie " + searchId + " found in train consist.");
+            System.out.println("\nBogie " + key + " found using Binary Search.");
         } else {
-            System.out.println("\nBogie " + searchId + " NOT found in train consist.");
+            System.out.println("\nBogie " + key + " NOT found in train consist.");
         }
 
-        System.out.println("UC18 search completed...");
+        System.out.println("UC19 search completed...");
     }
 }
